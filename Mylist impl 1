@@ -1,0 +1,13 @@
+public interface MyList<T> {
+    int size();
+    boolean contains(T item);
+    void add(T item);
+    void add(T item, int index);
+    boolean remove(T item);
+    T remove(int index) throws IndexOutOfBoundsException;
+    void clear();
+    T get(int index) throws IndexOutOfBoundsException;
+    int indexOf(T item);
+    int lastIndexOf(T item);
+    void sort();
+}
