@@ -1,0 +1,84 @@
+public class Main {
+    public static void main(String[] args) {
+
+        System.out.println("MyArrayList with Integer:");
+        MyList<Integer> list = new MyArraylist<>();
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        System.out.println("Size: " + list.size());
+        System.out.println("Contains 20? " + list.contains(20));
+        list.add(45, 2);
+        System.out.println("Index of 25: " + list.indexOf(45));
+        System.out.println("Last index of 25: " + list.lastIndexOf(45));
+        System.out.println("Element at index 1: " + list.get(1));
+        list.remove(new Integer(20));
+        list.sort();
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+        list.clear();
+        System.out.println("Size: " + list.size());
+
+
+        System.out.println("\nMyArrayList with String:");
+        MyList<String> list2 = new MyArraylist<>();
+        list2.add("apple");
+        list2.add("banana");
+        System.out.println("Size: " + list2.size());
+        System.out.println("Contains 'banana'? " + list2.contains("banana"));
+        System.out.println("Contains 'orange'? " + list2.contains("orange"));
+        list2.add("date", 2);
+        System.out.println("Index of 'date': " + list2.indexOf("date"));
+        System.out.println("Last index of 'date': " + list2.lastIndexOf("date"));
+        System.out.println("Element at index 1: " + list2.get(1));
+        list2.remove("banana");
+        System.out.println("We removed banana");
+        System.out.println("Element at index 1: " + list2.get(1));
+        list2.sort();
+
+
+        System.out.println("\nMyLinkedList with Integer:");
+        MyList<Integer> list3 = new MyLinkedList<>();
+        list3.add(10);
+        list3.add(20);
+        list3.add(30);
+        System.out.println("Size: " + list3.size());
+        System.out.println("Contains 40? " + list3.contains(40));
+        list3.add(27, 3);
+        System.out.println("Index of 25: " + list3.indexOf(27));
+        System.out.println("Last index of 25: " + list3.lastIndexOf(27));
+        System.out.println("Element at index 1: " + list3.get(1));
+        list3.remove(new Integer(20));
+        System.out.println("Element at index 1: " + list3.get(1));
+        list3.sort();
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+        list3.clear();
+
+
+        System.out.println("\nMyLinkedList with String:");
+        MyList<String> list4 = new MyLinkedList<>();
+        list4.add("apple");
+        list4.add("banana");
+        list4.add("cherry");
+        System.out.println("Size: " + list4.size());
+        System.out.println("Contains 'banana'? " + list4.contains("banana"));
+        System.out.println("Contains 'orange'? " + list4.contains("orange"));
+        list4.add("mango", 2);
+        System.out.println("Index of 'mango': " + list4.indexOf("mango"));
+        System.out.println("Last index of 'mango': " + list4.lastIndexOf("mango"));
+        System.out.println("Element at index 1: " + list4.get(1));
+        list4.remove("banana");
+        System.out.println("Size: " + list4.size());
+        System.out.println("Element at index 1: " + list4.get(1));
+        list4.sort();
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list4.get(i));
+        }
+        list4.clear();
+        System.out.println("Size: " + list4.size());
+    }
+}
+
