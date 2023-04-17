@@ -1,0 +1,190 @@
+import java.util.Iterator;
+
+public class MyLinkedList<T> implements MyList<T>, Iterable<T> {
+    private MyNode head;
+    private MyNode tail;
+    private int size;
+
+    private class MyNode {
+        T item;
+        MyNode next;
+
+        public MyNode(T item) {
+            this.item = item;
+        }
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean contains(T item) {
+        return indexOf(item) != -1;
+    }
+
+    public void add(T item) {
+        MyNode node = new MyNode(item);
+        if (size == 0) {
+            head = tail = node;
+        } else {
+            tail.next = node;
+            tail = node;
+        }
+        size++;
+    }
+
+    public void add(T item, int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+        MyNode node = new MyNode(item);
+        if (index == 0) {
+            node.next = head;
+            head = node;
+        } else if (index == size) {
+            tail.next = node;
+            tail = node;
+        } else {
+            MyNode prev = getNode(index - 1);
+            node.next = prev.next;
+            prev.next = node;
+        }
+        size++;
+    }
+
+    public boolean remove(T item) {
+        MyNode prev = null;
+        MyNode current = head;
+        while (current != null) {
+            if (current.item.equals(item)) {
+                removeNode(current, prev);
+                return true;
+            }
+            prev = current;
+            current = current.next;
+        }
+        return false;
+    }
+
+    public T remove(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        MyNode prev = null;
+        MyNode current = head;
+        for (int i = 0; i < index; i++) {
+            prev = current;
+            current = current.next;
+        }
+        removeNode(current, prev);
+        return current.item;
+    }
+
+    private void removeNode(MyNode node, MyNode prev) {
+        if (prev == null) {
+            head = node.next;
+        } else {
+            prev.next = node.next;
+        }
+        if (node == tail) {
+            tail = prev;
+        }
+        size--;
+    }
+
+    public void clear() {
+        head = tail = null;
+        size = 0;
+    }
+
+    public T get(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        return getNode(index).item;
+    }
+
+    private MyNode getNode(int index) {
+        MyNode current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current;
+    }
+
+    public int indexOf(T item) {
+        int index = 0;
+        MyNode current = head;
+        while (current != null) {
+            if (current.item.equals(item)) {
+                return index;
+            }
+            index++;
+            current = current.next;
+        }
+        return -1;
+    }
+
+    public int lastIndexOf(T item) {
+        int index = -1;
+        MyNode current = head;
+        for (int i = 0; i < size; i++) {
+            if (current.item.equals(item)) {
+                index = i;
+            }
+            current = current.next;
+        }
+        return index;
+    }
+
+    public void sort() {
+        // bubble sort
+        for (int i = 0; i < size - 1; i++) {
+            MyNode current = head;
+            MyNode previous = null;
+            for (int j = 0; j < size - i - 1; j++) {
+                if (((Comparable<T>) current.item).compareTo(current.next.item) > 0) {
+                    MyNode temp = current.next;
+                    current.next = temp.next;
+                    temp.next = current;
+                    if (previous == null) {
+                        head = temp;
+                    } else {
+                        previous.next = temp;
+                    }
+                    if (temp.next == null) {
+                        tail = temp;
+                    }
+                    current = temp;
+                }
+                previous = current;
+                current = current.next;
+            }
+        }
+    }
+
+    public Iterator<T> iterator() {
+        return new MyLinkedListIterator();
+    }
+
+    private class MyLinkedListIterator implements Iterator<T> {
+        private MyNode current = head;
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public T next() {
+            if (!hasNext()) {
+                throw new java.util.NoSuchElementException();
+            }
+            T item = current.item;
+            current = current.next;
+            return item;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+}
